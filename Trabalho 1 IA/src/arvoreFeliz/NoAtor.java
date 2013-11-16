@@ -27,4 +27,9 @@ public class NoAtor {
 	public void setFilhos(ArrayList<NoAtor> filhos) {
 		this.filhos = filhos;
 	}
+
+	@Override
+	public String toString() {
+		return "NoAtor [nome=" + nome + ", filhos=" + filhos + "]";
+	}
 }
