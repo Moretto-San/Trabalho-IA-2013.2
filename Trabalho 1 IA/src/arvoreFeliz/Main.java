@@ -26,6 +26,6 @@ public class Main {
 		} catch (Exception err) {
 			System.err.println(err.toString());
 		}
-		
+		ArrayList<NoAtor> frontier = new ArrayList<NoAtor>();
 	}
 }
