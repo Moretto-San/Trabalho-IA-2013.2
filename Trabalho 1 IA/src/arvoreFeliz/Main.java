@@ -15,6 +15,7 @@ public class Main {
 			String filme = in.readLine();
 			ArrayList<String> atores = new ArrayList<String>();
 			while (filme != null) {
+				//
 				String[] split = filme.split(";");
 				for (int i = 1; i < split.length; i++) {
 					atores.add(split[i]);
