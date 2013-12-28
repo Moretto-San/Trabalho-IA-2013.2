@@ -29,8 +29,16 @@ public class Main {
 		}
 		ArrayList<NoAtor> frontier = new ArrayList<NoAtor>();
 		ArrayList<NoAtor> explored = new ArrayList<NoAtor>();
+		ArrayList<NoAtor> filhos = new ArrayList<NoAtor>();
 		NoAtor raiz = new NoAtor("Kevin Bacon", getFilhos("Kevin Bacon",
 				filmes, frontier));
+		explored.add(raiz);
+		while(frontier.size()>0){
+			NoAtor no = frontier.get(frontier.size()-1);
+			filhos = getFilhos(no.getNome(), filmes, frontier);
+			no.setFilhos(filhos);
+			explored.add(no);
+		}
 		System.err.println(raiz.toString());
 	}
 
