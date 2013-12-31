@@ -22,7 +22,8 @@ public class Main {
 				for (int i = 1; i < split.length; i++) {
 					atores.add(split[i]);
 				}
-				filmes.add(new Movie(split[0], atores));
+				filmes.add(new Movie(split[0], (ArrayList<String>) atores.clone()));
+				atores.clear();
 				filme = in.readLine();
 			}
 			in.close();
@@ -37,37 +38,31 @@ public class Main {
 				}
 			}
 		}
-		System.err.println("Existem " + atores.size());
-		System.err.println("Inicio");
+		System.err.println("Existem " + atores.size() + "atores");
+		System.err.println("Existem " + filmes.size() + "filmes");
 		String atorAlvo = JOptionPane
 				.showInputDialog("Escreva o nome do ator alvo!!");
+		NoAtor alvo = null;
 		ArrayList<NoAtor> frontier = new ArrayList<NoAtor>();
 		ArrayList<NoAtor> explored = new ArrayList<NoAtor>();
-		ArrayList<NoAtor> filhos = new ArrayList<NoAtor>();
-
-		NoAtor raiz = new NoAtor("Kevin Bacon", getFilhos("Kevin Bacon",
-				filmes, frontier, explored, 0), 0);
-		System.err.println("Raiz: " + raiz.toString());
-		System.err.println("raiz tem"+raiz.getFilhos().size()+"filhos");
-		explored.add(raiz);
+		NoAtor raiz = new NoAtor("Kevin Bacon", null, 0);
+		frontier.add(raiz);
 		NoAtor noCorrente = null;
-		boolean achou = false;
 		while (frontier.size() > 0) {
-
-			noCorrente = frontier.get(frontier.size() - 1);			
+			noCorrente = frontier.get(frontier.size() - 1);
 			frontier.remove(noCorrente);
 			noCorrente.setFilhos(getFilhos(noCorrente.getNome(), filmes,
 					frontier, explored, noCorrente.getProfundidade()));
 			System.err.println("no corrente:" + noCorrente.toString());
 			explored.add(noCorrente);
-			for (NoAtor noAtor : filhos) {
+			for (NoAtor noAtor : noCorrente.getFilhos()) {
 				if (noAtor.getNome().equals(atorAlvo)) {
-					achou = true;
+					alvo = noAtor;
 					break;
 				}
 			}
 		}
-		System.err.println(achou);
+		System.err.println("alvo: "+alvo);
 	}
 
 	public static ArrayList<NoAtor> getFilhos(String atorPai,
@@ -76,9 +71,9 @@ public class Main {
 		ArrayList<NoAtor> filhos = new ArrayList<NoAtor>();
 		boolean jaAchado = false;
 		for (Movie filme : movies) {
-			if (filme.getAtores().contains(atorPai)) {
-				jaAchado = false;
+			if (filme.getAtores().contains(atorPai)) {				
 				for (String atorFilho : filme.getAtores()) {
+					jaAchado = false;
 					for (NoAtor noFrontier : frontier) {
 						if (noFrontier.getNome().equals(atorFilho)) {
 							jaAchado = true;
