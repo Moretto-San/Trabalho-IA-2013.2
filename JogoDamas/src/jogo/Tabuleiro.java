@@ -1,12 +1,5 @@
 package jogo;
 
-/*	TODO
- * 	Verificar quando o socket é fechado após enviar a matriz. 
- * 	Se uma ponta for fechada antes da outra ponta receber irá ocorrer IOException
- * 
- * 
- */
-
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -16,6 +9,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import jogo.IA.Action;
 
 public class Tabuleiro extends JPanel {
 
@@ -32,6 +27,7 @@ public class Tabuleiro extends JPanel {
 	private int index = -1;
 	private boolean suaVezDeJogar;
 	private Cor minhaPeca;
+	private Cor corPecaIa;
 
 	// Cliente
 	public Tabuleiro() {
@@ -42,6 +38,7 @@ public class Tabuleiro extends JPanel {
 		// receberMatriz();
 		suaVezDeJogar = true;
 		minhaPeca = Cor.AZUL;
+		corPecaIa = Cor.VERMELHA;
 	}
 
 	private void carregarTabuleiro() {
@@ -122,10 +119,12 @@ public class Tabuleiro extends JPanel {
 		}
 
 		if (enviarMatriz) {
-			repintarTabuleiro();
+
 			// enviarMatriz(tabuleiro);
 			// receberMatriz();
 			suaVezDeJogar = false;
+			vezIA();
+			repintarTabuleiro();
 		}
 
 		verificarPorVencedor();
@@ -441,4 +440,43 @@ public class Tabuleiro extends JPanel {
 			JOptionPane.showMessageDialog(null, "Azuls venceu!");
 		}
 	}
+
+	public void vezIA() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void MINIMAXDECISION(Botao tabuleiro) {
+
+	}
+
+	public ArrayList<Action> getActions() {
+		ArrayList<Action> actions = new ArrayList<Action>();
+		for (int i = 0; i < tabuleiro.length; i++) {
+			for (int j = 0; j < tabuleiro.length; j++) {
+				if (tabuleiro[i][j].getCor().equals(corPecaIa)) {
+					mostrarOpcoes(tabuleiro[i][j]);
+					for (int k = 0; k < tabuleiro.length; k++) {
+						for (int l = 0; l < tabuleiro.length; l++) {
+							if(tabuleiro[k][l].getBackground() == Color.GREEN){
+								actions.add(new Action(tabuleiro[i][j], tabuleiro[k][l]));
+							}
+						}
+					}
+				}
+			}
+		}
+		return actions;
+	}
+
+	public class Action {
+		Botao origem;
+		Botao destino;
+
+		public Action(Botao origem, Botao destino) {
+			this.origem = origem;
+			this.destino = destino;
+		}
+	}
+
 }
