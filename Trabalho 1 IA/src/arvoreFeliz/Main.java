@@ -46,14 +46,17 @@ public class Main {
 		String atorAlvo = JOptionPane
 				.showInputDialog("Escreva o nome do ator alvo!!");
 		if (tipoBusca.equals("1")) {
+			buscaLargura(atorAlvo, filmes);
+		}
+		if (tipoBusca.equals("2")) {
 			buscaProfundidade(6, atorAlvo, filmes);
 		} else {
-			for (int i = 1; i < 6; i++) {
-				System.err.println("Profundiade: " + i);
-				NoAtor alvo = buscaProfundidade(i, atorAlvo, filmes);
-				if (alvo != null && alvo.getNome().equals(atorAlvo)) {
-					break;
-				}
+		}
+		for (int i = 1; i < 6; i++) {
+			System.err.println("Profundiade: " + i);
+			NoAtor alvo = buscaProfundidade(i, atorAlvo, filmes);
+			if (alvo != null && alvo.getNome().equals(atorAlvo)) {
+				break;
 			}
 		}
 	}
@@ -68,16 +71,19 @@ public class Main {
 		NoAtor noCorrente = null;
 		while (frontier.size() > 0) {
 			noCorrente = frontier.get(frontier.size() - 1);
-			if (noCorrente.getProfundidade() <= profundidade-1) {
+			if (noCorrente.getProfundidade() <= profundidade - 1) {
 				frontier.remove(noCorrente);
 				noCorrente.setFilhos(getFilhos(noCorrente.getNome(), filmes,
 						frontier, explored, noCorrente.getProfundidade()));
 				explored.add(noCorrente);
-				for (NoAtor noAtor : noCorrente.getFilhos()) {
-					if (noAtor.getNome().equals(atorAlvo)) {
-						alvo = noAtor;
+				for (NoAtor filhoNoCorrente : noCorrente.getFilhos()) {
+					if (filhoNoCorrente.getNome().equals(atorAlvo)) {
+						alvo = filhoNoCorrente;
 						break;
 					}
+				}
+				if (alvo != null && alvo.getNome().equals(atorAlvo)) {
+					break;
 				}
 			} else {
 				frontier.remove(noCorrente);
@@ -85,6 +91,35 @@ public class Main {
 			}
 		}
 		System.err.println("alvo: " + alvo);
+		System.err.println("Explored:" + explored.size());
+		return alvo;
+	}
+
+	public static NoAtor buscaLargura(String atorAlvo, ArrayList<Movie> filmes) {
+		NoAtor alvo = null;
+		ArrayList<NoAtor> frontier = new ArrayList<NoAtor>();
+		ArrayList<NoAtor> explored = new ArrayList<NoAtor>();
+		NoAtor raiz = new NoAtor("Kevin Bacon", null, 0);
+		frontier.add(raiz);
+		NoAtor noCorrente = null;
+		while (frontier.size() > 0) {
+			noCorrente = frontier.get(0);
+			frontier.remove(noCorrente);
+			noCorrente.setFilhos(getFilhos(noCorrente.getNome(), filmes,
+					frontier, explored, noCorrente.getProfundidade()));
+			explored.add(noCorrente);
+			for (NoAtor filhoNoCorrente : noCorrente.getFilhos()) {
+				if (filhoNoCorrente.getNome().equals(atorAlvo)) {
+					alvo = filhoNoCorrente;
+					break;
+				}
+			}
+			if (alvo != null && alvo.getNome().equals(atorAlvo)) {
+				break;
+			}
+		}
+		System.err.println("alvo: " + alvo);
+		System.err.println("Explored:" + explored.size());
 		return alvo;
 	}
 
