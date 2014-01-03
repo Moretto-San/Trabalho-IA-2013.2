@@ -15,9 +15,9 @@ public class AboutBox extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private JLabel            labelAutores;
 	private JLabel            lblNomeAutores;
-	private JLabel            lblDenysonHenriqueDos;
-	private JLabel            lblLeonardoBarbieriBedendo;
-	private JLabel            lblMarceloMartelliAymori;
+	private JLabel            lblMorett;
+	private JLabel            lblRai;
+	private JLabel            lblGisele;
 
 	public AboutBox() {
 		setResizable( false );
@@ -28,9 +28,9 @@ public class AboutBox extends JDialog {
 		setTitle( "Sobre..." );
 		setLocationRelativeTo( null );
 		getContentPane().setLayout( null );
-		getContentPane().add( getLblMarceloMartelliAymori() );
-		getContentPane().add( getLblDenysonHenriqueDos() );
-		getContentPane().add( getLblLeonardoBarbieriBedendo() );
+		getContentPane().add( getLblGisele() );
+		getContentPane().add( getLblMorett() );
+		getContentPane().add( getLblRai() );
 		getContentPane().add( getLblNomeAutores() );
 
 		labelAutores = new JLabel( "" );
@@ -63,39 +63,39 @@ public class AboutBox extends JDialog {
 		return lblNomeAutores;
 	}
 
-	private JLabel getLblDenysonHenriqueDos() {
-		if( lblDenysonHenriqueDos == null ) {
-			lblDenysonHenriqueDos = new JLabel( "Denyson Henrique dos Reis Bott" );
-			lblDenysonHenriqueDos.setFont( new Font( "Tahoma", Font.BOLD, 15 ) );
-			lblDenysonHenriqueDos.setHorizontalAlignment( SwingConstants.CENTER );
-			lblDenysonHenriqueDos.setForeground( Color.ORANGE );
-			lblDenysonHenriqueDos.setBackground( Color.WHITE );
-			lblDenysonHenriqueDos.setBounds( 2, 123, 264, 33 );
+	private JLabel getLblMorett() {
+		if( lblMorett == null ) {
+			lblMorett = new JLabel( "Rafael Braga Morett" );
+			lblMorett.setFont( new Font( "Tahoma", Font.BOLD, 15 ) );
+			lblMorett.setHorizontalAlignment( SwingConstants.CENTER );
+			lblMorett.setForeground( Color.ORANGE );
+			lblMorett.setBackground( Color.WHITE );
+			lblMorett.setBounds( 2, 123, 264, 33 );
 		}
-		return lblDenysonHenriqueDos;
+		return lblMorett;
 	}
 
-	private JLabel getLblLeonardoBarbieriBedendo() {
-		if( lblLeonardoBarbieriBedendo == null ) {
-			lblLeonardoBarbieriBedendo = new JLabel( "Leonardo Barbieri Bedendo" );
-			lblLeonardoBarbieriBedendo.setFont( new Font( "Tahoma", Font.BOLD, 15 ) );
-			lblLeonardoBarbieriBedendo.setHorizontalAlignment( SwingConstants.CENTER );
-			lblLeonardoBarbieriBedendo.setForeground( Color.ORANGE );
-			lblLeonardoBarbieriBedendo.setBackground( Color.WHITE );
-			lblLeonardoBarbieriBedendo.setBounds( 2, 157, 264, 33 );
+	private JLabel getLblRai() {
+		if( lblRai == null ) {
+			lblRai = new JLabel( "Rai Gomes" );
+			lblRai.setFont( new Font( "Tahoma", Font.BOLD, 15 ) );
+			lblRai.setHorizontalAlignment( SwingConstants.CENTER );
+			lblRai.setForeground( Color.ORANGE );
+			lblRai.setBackground( Color.WHITE );
+			lblRai.setBounds( 2, 157, 264, 33 );
 		}
-		return lblLeonardoBarbieriBedendo;
+		return lblRai;
 	}
 
-	private JLabel getLblMarceloMartelliAymori() {
-		if( lblMarceloMartelliAymori == null ) {
-			lblMarceloMartelliAymori = new JLabel( "Marcelo Martelli Aymori" );
-			lblMarceloMartelliAymori.setFont( new Font( "Tahoma", Font.BOLD, 15 ) );
-			lblMarceloMartelliAymori.setHorizontalAlignment( SwingConstants.CENTER );
-			lblMarceloMartelliAymori.setForeground( Color.ORANGE );
-			lblMarceloMartelliAymori.setBackground( Color.WHITE );
-			lblMarceloMartelliAymori.setBounds( 2, 190, 264, 33 );
+	private JLabel getLblGisele() {
+		if( lblGisele == null ) {
+			lblGisele = new JLabel( "Gisele" );
+			lblGisele.setFont( new Font( "Tahoma", Font.BOLD, 15 ) );
+			lblGisele.setHorizontalAlignment( SwingConstants.CENTER );
+			lblGisele.setForeground( Color.ORANGE );
+			lblGisele.setBackground( Color.WHITE );
+			lblGisele.setBounds( 2, 190, 264, 33 );
 		}
-		return lblMarceloMartelliAymori;
+		return lblGisele;
 	}
 }

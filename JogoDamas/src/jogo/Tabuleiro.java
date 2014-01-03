@@ -440,10 +440,10 @@ public class Tabuleiro extends JPanel {
 	}
 
 	public void vezIA() {
-		MINIMAXDECISION(tabuleiro);
+		ALPHABETASEARCH(tabuleiro);
 	}
 
-	public Action MINIMAXDECISION(Botao[][] tabuleiro) {
+	public Action ALPHABETASEARCH(Botao[][] tabuleiro) {
 		ArrayList<Action> actions = getActions(tabuleiro);
 		for (Action action : actions) {
 			
@@ -451,14 +451,25 @@ public class Tabuleiro extends JPanel {
 		return null; 
 	}
 
-	public int MAXVALUE(Botao[][] tabuleiro) {
+	public int MAXVALUE(Botao[][] tabuleiro, int alfa, int beta) {
+		ArrayList<Action> actions = getActions(tabuleiro);
+		int maior = Integer.MAX_VALUE;
 		return 0;
 	}
 
-	public int MINVALUE(Botao[][] tabuleiro) {
+	public int MINVALUE(Botao[][] tabuleiro, int alfa, int beta) {
+		ArrayList<Action> actions = getActions(tabuleiro);
+		int menor = Integer.MIN_VALUE;
+		for (Action action : actions) {
+			
+		}
 		return 0;
 	}
 
+	public ArrayList<Botao[][]> getEstados(Botao[][] tabuleiro) {
+	return null;
+	}
+	
 	public ArrayList<Action> getActions(Botao[][] tabuleiro) {
 		ArrayList<Action> actions = new ArrayList<Action>();
 		for (int i = 0; i < tabuleiro.length; i++) {
