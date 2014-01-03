@@ -34,10 +34,8 @@ public class Principal extends JFrame {
 
 	
 	//Servidor
-	public Principal( final String jogador1, String jogador2){
-		
-		initialize(jogador1, jogador2);
-		
+	public Principal( final String jogador1){		
+		initialize(jogador1, "IA");		
 		//Carrega o tabuleiro do jogo
 		panelTabuleiro = new Tabuleiro();
 		getContentPane().add( panelTabuleiro, BorderLayout.CENTER );
