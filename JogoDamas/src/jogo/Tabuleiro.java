@@ -10,8 +10,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import jogo.IA.Action;
-
 public class Tabuleiro extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -442,15 +440,26 @@ public class Tabuleiro extends JPanel {
 	}
 
 	public void vezIA() {
-		// TODO Auto-generated method stub
-
+		MINIMAXDECISION(tabuleiro);
 	}
 
-	public void MINIMAXDECISION(Botao tabuleiro) {
-
+	public Action MINIMAXDECISION(Botao[][] tabuleiro) {
+		ArrayList<Action> actions = getActions(tabuleiro);
+		for (Action action : actions) {
+			
+		}
+		return null; 
 	}
 
-	public ArrayList<Action> getActions() {
+	public int MAXVALUE(Botao[][] tabuleiro) {
+		return 0;
+	}
+
+	public int MINVALUE(Botao[][] tabuleiro) {
+		return 0;
+	}
+
+	public ArrayList<Action> getActions(Botao[][] tabuleiro) {
 		ArrayList<Action> actions = new ArrayList<Action>();
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro.length; j++) {
@@ -458,8 +467,9 @@ public class Tabuleiro extends JPanel {
 					mostrarOpcoes(tabuleiro[i][j]);
 					for (int k = 0; k < tabuleiro.length; k++) {
 						for (int l = 0; l < tabuleiro.length; l++) {
-							if(tabuleiro[k][l].getBackground() == Color.GREEN){
-								actions.add(new Action(tabuleiro[i][j], tabuleiro[k][l]));
+							if (tabuleiro[k][l].getBackground() == Color.GREEN) {
+								actions.add(new Action(tabuleiro[i][j],
+										tabuleiro[k][l]));
 							}
 						}
 					}
