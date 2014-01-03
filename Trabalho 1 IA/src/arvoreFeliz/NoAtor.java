@@ -32,7 +32,7 @@ public class NoAtor {
 
 	@Override
 	public String toString() {
-		return "[nome=" + nome + ", filhos=" + filhos + "profundidade: "
+		return "[nome=" + nome + ", filhos=" + filhos + " ,profundidade: "
 				+ profundidade + "]";
 	}
 

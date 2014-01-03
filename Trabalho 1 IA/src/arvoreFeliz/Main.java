@@ -22,7 +22,8 @@ public class Main {
 				for (int i = 1; i < split.length; i++) {
 					atores.add(split[i]);
 				}
-				filmes.add(new Movie(split[0], (ArrayList<String>) atores.clone()));
+				filmes.add(new Movie(split[0], (ArrayList<String>) atores
+						.clone()));
 				atores.clear();
 				filme = in.readLine();
 			}
@@ -40,8 +41,25 @@ public class Main {
 		}
 		System.err.println("Existem " + atores.size() + "atores");
 		System.err.println("Existem " + filmes.size() + "filmes");
+		String tipoBusca = JOptionPane
+				.showInputDialog("Digite 1 para Busca em Profundidade ou 2 para busca em profundidade iterativa!!!");
 		String atorAlvo = JOptionPane
 				.showInputDialog("Escreva o nome do ator alvo!!");
+		if (tipoBusca.equals("1")) {
+			buscaProfundidade(6, atorAlvo, filmes);
+		} else {
+			for (int i = 1; i < 6; i++) {
+				System.err.println("Profundiade: " + i);
+				NoAtor alvo = buscaProfundidade(i, atorAlvo, filmes);
+				if (alvo != null && alvo.getNome().equals(atorAlvo)) {
+					break;
+				}
+			}
+		}
+	}
+
+	public static NoAtor buscaProfundidade(int profundidade, String atorAlvo,
+			ArrayList<Movie> filmes) {
 		NoAtor alvo = null;
 		ArrayList<NoAtor> frontier = new ArrayList<NoAtor>();
 		ArrayList<NoAtor> explored = new ArrayList<NoAtor>();
@@ -50,19 +68,24 @@ public class Main {
 		NoAtor noCorrente = null;
 		while (frontier.size() > 0) {
 			noCorrente = frontier.get(frontier.size() - 1);
-			frontier.remove(noCorrente);
-			noCorrente.setFilhos(getFilhos(noCorrente.getNome(), filmes,
-					frontier, explored, noCorrente.getProfundidade()));
-			System.err.println("no corrente:" + noCorrente.toString());
-			explored.add(noCorrente);
-			for (NoAtor noAtor : noCorrente.getFilhos()) {
-				if (noAtor.getNome().equals(atorAlvo)) {
-					alvo = noAtor;
-					break;
+			if (noCorrente.getProfundidade() <= profundidade-1) {
+				frontier.remove(noCorrente);
+				noCorrente.setFilhos(getFilhos(noCorrente.getNome(), filmes,
+						frontier, explored, noCorrente.getProfundidade()));
+				explored.add(noCorrente);
+				for (NoAtor noAtor : noCorrente.getFilhos()) {
+					if (noAtor.getNome().equals(atorAlvo)) {
+						alvo = noAtor;
+						break;
+					}
 				}
+			} else {
+				frontier.remove(noCorrente);
+				explored.add(noCorrente);
 			}
 		}
-		System.err.println("alvo: "+alvo);
+		System.err.println("alvo: " + alvo);
+		return alvo;
 	}
 
 	public static ArrayList<NoAtor> getFilhos(String atorPai,
@@ -71,7 +94,7 @@ public class Main {
 		ArrayList<NoAtor> filhos = new ArrayList<NoAtor>();
 		boolean jaAchado = false;
 		for (Movie filme : movies) {
-			if (filme.getAtores().contains(atorPai)) {				
+			if (filme.getAtores().contains(atorPai)) {
 				for (String atorFilho : filme.getAtores()) {
 					jaAchado = false;
 					for (NoAtor noFrontier : frontier) {
