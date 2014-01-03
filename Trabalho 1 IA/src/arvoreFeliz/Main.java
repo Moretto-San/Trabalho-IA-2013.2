@@ -42,21 +42,24 @@ public class Main {
 		System.err.println("Existem " + atores.size() + "atores");
 		System.err.println("Existem " + filmes.size() + "filmes");
 		String tipoBusca = JOptionPane
-				.showInputDialog("Digite 1 para Busca em Profundidade ou 2 para busca em profundidade iterativa!!!");
+				.showInputDialog("Digite 1 para Busca em largura ou 2 para busca em profundidade ou 3 para busca em profundidade iterativa!!!");
 		String atorAlvo = JOptionPane
 				.showInputDialog("Escreva o nome do ator alvo!!");
 		if (tipoBusca.equals("1")) {
+			System.err.println("Largura");
 			buscaLargura(atorAlvo, filmes);
 		}
 		if (tipoBusca.equals("2")) {
+			System.err.println("Profundidade");
 			buscaProfundidade(6, atorAlvo, filmes);
-		} else {
-		}
-		for (int i = 1; i < 6; i++) {
-			System.err.println("Profundiade: " + i);
-			NoAtor alvo = buscaProfundidade(i, atorAlvo, filmes);
-			if (alvo != null && alvo.getNome().equals(atorAlvo)) {
-				break;
+		} if (tipoBusca.equals("3")) {
+			System.err.println("Profundidade iterativa");
+			for (int i = 1; i < 6; i++) {
+				System.err.println("Profundiade: " + i);
+				NoAtor alvo = buscaProfundidade(i, atorAlvo, filmes);
+				if (alvo != null && alvo.getNome().equals(atorAlvo)) {
+					break;
+				}
 			}
 		}
 	}
