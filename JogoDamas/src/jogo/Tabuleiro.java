@@ -98,7 +98,7 @@ public class Tabuleiro extends JPanel {
 					"Atenção!", JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
-		boolean enviarMatriz = false;
+		boolean jogou = false;
 		if (btn.getCor() == Cor.VERMELHA || btn.getCor() == Cor.AZUL) {
 			if (btn.getCor() == minhaPeca) {
 				mostrarOpcoes(btn);
@@ -108,19 +108,18 @@ public class Tabuleiro extends JPanel {
 
 		if (btn.getBackground() == Color.RED) {
 			moverPeca(btnOrigem, btn);
-			enviarMatriz = true;
+			jogou = true;
 		}
 
 		else if (btn.getBackground() == Color.GREEN) {
 			comerPeca(procurarPecaEscolhidaParaComer(btn), btnOrigem, btn);
-			enviarMatriz = true;
+			jogou = true;
 		}
 
-		if (enviarMatriz) {
+		if (jogou) {
 
 			// enviarMatriz(tabuleiro);
 			// receberMatriz();
-			suaVezDeJogar = false;
 			vezIA();
 			repintarTabuleiro();
 		}
@@ -440,6 +439,8 @@ public class Tabuleiro extends JPanel {
 	}
 
 	public void vezIA() {
+		IA ia = new IA();
+		tabuleiro = ia.ALPHABETASEARCH(tabuleiro);
 	}
 
 	

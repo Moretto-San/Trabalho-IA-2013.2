@@ -15,41 +15,59 @@ public class IA {
 	private ImageIcon icon2 = new ImageIcon(
 			Tabuleiro.class.getResource("/img/circle-red.png")); // Peça
 																	// Vermelha
+	private Botao[][] tabuleiroRespostaIa;
 
-	public Action ALPHABETASEARCH(Botao[][] tabuleiro) {
-		ArrayList<Action> actions = getActions(tabuleiro);
-		for (Action action : actions) {
+	public IA(){
+		
+	}
+	public Botao[][] ALPHABETASEARCH(Botao[][] tabuleiro) {
+		tabuleiroRespostaIa = null;
+		MAXVALUE(tabuleiro, Integer.MIN_VALUE, Integer.MAX_VALUE);
 
-		}
-		return null;
+		return tabuleiroRespostaIa;
 	}
 
 	public int MAXVALUE(Botao[][] tabuleiro, int alfa, int beta) {
 		ArrayList<Action> actions = getActions(tabuleiro);
-		int maior = Integer.MAX_VALUE;
-		int aux = 0;
-		if (verificarPorVencedor(tabuleiro) == 1) {
-			return 1;
+		int v = 0;
+		if (verificarPorVencedor(tabuleiro) > 0) {
+			return verificarPorVencedor(tabuleiro);
 		}
 		for (Action action : actions) {
-			if (MINVALUE(result(action, tabuleiro), alfa, beta) >= 1) {
-
+			int aux = MINVALUE(result(action, tabuleiro), alfa, beta);
+			if (aux > v) {
+				tabuleiroRespostaIa = result(action, tabuleiro);
+				v = aux;
+			}
+			if (v >= beta) {
+				return v;
+			}
+			if (v > alfa) {
+				alfa = v;
 			}
 		}
-		return 0;
+		return v;
 	}
 
 	public int MINVALUE(Botao[][] tabuleiro, int alfa, int beta) {
 		ArrayList<Action> actions = getActions(tabuleiro);
-		int menor = Integer.MIN_VALUE;
-		int aux = 0;
-		if (verificarPorVencedor(tabuleiro) == -1) {
-			return -1;
+		int v = 0;
+		if (verificarPorVencedor(tabuleiro) < 0) {
+			return verificarPorVencedor(tabuleiro);
 		}
 		for (Action action : actions) {
-
+			int aux = MAXVALUE(result(action, tabuleiro), alfa, beta);
+			if (aux < v) {
+				v = aux;
+			}
+			if (v <= alfa) {
+				return v;
+			}
+			if (v < beta) {
+				beta = v;
+			}
 		}
-		return 0;
+		return v;
 	}
 
 	public int verificarPorVencedor(Botao[][] tabuleiro) {
@@ -64,9 +82,9 @@ public class IA {
 			}
 		}
 		if (contadorPecasAzuis == 0) {
-			return +1;
+			return contadorPecasVermelhas;
 		} else if (contadorPecasVermelhas == 0) {
-			return -1;
+			return -contadorPecasAzuis;
 		}
 		return 0;
 	}
