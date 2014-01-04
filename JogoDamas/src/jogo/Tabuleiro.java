@@ -440,64 +440,7 @@ public class Tabuleiro extends JPanel {
 	}
 
 	public void vezIA() {
-		ALPHABETASEARCH(tabuleiro);
 	}
 
-	public Action ALPHABETASEARCH(Botao[][] tabuleiro) {
-		ArrayList<Action> actions = getActions(tabuleiro);
-		for (Action action : actions) {
-			
-		}
-		return null; 
-	}
-
-	public int MAXVALUE(Botao[][] tabuleiro, int alfa, int beta) {
-		ArrayList<Action> actions = getActions(tabuleiro);
-		int maior = Integer.MAX_VALUE;
-		return 0;
-	}
-
-	public int MINVALUE(Botao[][] tabuleiro, int alfa, int beta) {
-		ArrayList<Action> actions = getActions(tabuleiro);
-		int menor = Integer.MIN_VALUE;
-		for (Action action : actions) {
-			
-		}
-		return 0;
-	}
-
-	public ArrayList<Botao[][]> getEstados(Botao[][] tabuleiro) {
-	return null;
-	}
 	
-	public ArrayList<Action> getActions(Botao[][] tabuleiro) {
-		ArrayList<Action> actions = new ArrayList<Action>();
-		for (int i = 0; i < tabuleiro.length; i++) {
-			for (int j = 0; j < tabuleiro.length; j++) {
-				if (tabuleiro[i][j].getCor().equals(corPecaIa)) {
-					mostrarOpcoes(tabuleiro[i][j]);
-					for (int k = 0; k < tabuleiro.length; k++) {
-						for (int l = 0; l < tabuleiro.length; l++) {
-							if (tabuleiro[k][l].getBackground() == Color.GREEN) {
-								actions.add(new Action(tabuleiro[i][j],
-										tabuleiro[k][l]));
-							}
-						}
-					}
-				}
-			}
-		}
-		return actions;
-	}
-
-	public class Action {
-		Botao origem;
-		Botao destino;
-
-		public Action(Botao origem, Botao destino) {
-			this.origem = origem;
-			this.destino = destino;
-		}
-	}
-
 }
