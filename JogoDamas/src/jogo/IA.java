@@ -100,16 +100,12 @@ public class IA {
 
 	public Botao[][] result(Action acao, Botao[][] tabuleiroIn) {
 		Botao[][] tabuleiro = tabuleiroIn.clone();
-		System.err.println("REsult:");
 		if (acao.getDestino().getBackground() == Color.GREEN) {
-			System.err.println("result: verde");
 			comerPeca(
 					procurarPecaEscolhidaParaComer(acao.getDestino(), tabuleiro),
 					acao.getOrigem(), acao.getDestino(), tabuleiro);
 		}
 		if (acao.getDestino().getBackground() == Color.RED) {
-			System.err.println("result: vermelho");
-
 			moverPeca(acao.getOrigem(), acao.getDestino(), tabuleiro);
 		}
 		return tabuleiro;
@@ -130,11 +126,13 @@ public class IA {
 								origem = new Botao(tabuleiro[i][j].getI(),
 										tabuleiro[i][j].getJ(),
 										tabuleiro[i][j].getCor());
-								origem.setBackground(tabuleiro[i][j].getBackground());
+								origem.setBackground(tabuleiro[i][j]
+										.getBackground());
 								destino = new Botao(tabuleiro[k][l].getI(),
 										tabuleiro[k][l].getJ(),
 										tabuleiro[k][l].getCor());
-								destino.setBackground(tabuleiro[k][l].getBackground());
+								destino.setBackground(tabuleiro[k][l]
+										.getBackground());
 								actions.add(new Action(origem, destino));
 							}
 						}
