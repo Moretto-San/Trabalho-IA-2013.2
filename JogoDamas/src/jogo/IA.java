@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 public class IA {
 	private Cor corPecaIa = Cor.VERMELHA;
+	private Cor minhaPeca;
 	private ArrayList<Botao> botoesASeremComidos = new ArrayList<Botao>();
 	private int index = -1;
 	private ImageIcon icon1 = new ImageIcon(
@@ -17,26 +18,31 @@ public class IA {
 																	// Vermelha
 	private Botao[][] tabuleiroRespostaIa;
 
-	public IA(){
-		
-	}
-	public Botao[][] ALPHABETASEARCH(Botao[][] tabuleiro) {
-		tabuleiroRespostaIa = null;
-		MAXVALUE(tabuleiro, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	public IA() {
 
+	}
+
+	public Botao[][] ALPHABETASEARCH(Botao[][] tabuleiroIn) {
+		tabuleiroRespostaIa = null;
+		Botao[][] tabuleiro = tabuleiroIn.clone();
+		imprimiTabuleiro(tabuleiro);
+		MAXVALUE(tabuleiro, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		imprimiTabuleiro(tabuleiroRespostaIa);
 		return tabuleiroRespostaIa;
 	}
 
 	public int MAXVALUE(Botao[][] tabuleiro, int alfa, int beta) {
+		corPecaIa = Cor.VERMELHA;
 		ArrayList<Action> actions = getActions(tabuleiro);
 		int v = 0;
 		if (verificarPorVencedor(tabuleiro) > 0) {
 			return verificarPorVencedor(tabuleiro);
 		}
 		for (Action action : actions) {
-			int aux = MINVALUE(result(action, tabuleiro), alfa, beta);
+			tabuleiroRespostaIa = result(action, tabuleiro);
+			imprimiTabuleiro(tabuleiroRespostaIa);
+			int aux = MINVALUE(tabuleiroRespostaIa, alfa, beta);
 			if (aux > v) {
-				tabuleiroRespostaIa = result(action, tabuleiro);
 				v = aux;
 			}
 			if (v >= beta) {
@@ -50,13 +56,16 @@ public class IA {
 	}
 
 	public int MINVALUE(Botao[][] tabuleiro, int alfa, int beta) {
+		corPecaIa = Cor.AZUL;
 		ArrayList<Action> actions = getActions(tabuleiro);
 		int v = 0;
 		if (verificarPorVencedor(tabuleiro) < 0) {
 			return verificarPorVencedor(tabuleiro);
 		}
 		for (Action action : actions) {
-			int aux = MAXVALUE(result(action, tabuleiro), alfa, beta);
+			tabuleiroRespostaIa = result(action, tabuleiro);
+			imprimiTabuleiro(tabuleiroRespostaIa);
+			int aux = MAXVALUE(tabuleiroRespostaIa, alfa, beta);
 			if (aux < v) {
 				v = aux;
 			}
@@ -91,12 +100,16 @@ public class IA {
 
 	public Botao[][] result(Action acao, Botao[][] tabuleiroIn) {
 		Botao[][] tabuleiro = tabuleiroIn.clone();
-		if (acao.getOrigem().getBackground() == Color.GREEN) {
+		System.err.println("REsult:");
+		if (acao.getDestino().getBackground() == Color.GREEN) {
+			System.err.println("result: verde");
 			comerPeca(
 					procurarPecaEscolhidaParaComer(acao.getDestino(), tabuleiro),
 					acao.getOrigem(), acao.getDestino(), tabuleiro);
 		}
-		if (acao.getOrigem().getBackground() == Color.RED) {
+		if (acao.getDestino().getBackground() == Color.RED) {
+			System.err.println("result: vermelho");
+
 			moverPeca(acao.getOrigem(), acao.getDestino(), tabuleiro);
 		}
 		return tabuleiro;
@@ -104,21 +117,38 @@ public class IA {
 
 	public ArrayList<Action> getActions(Botao[][] tabuleiro) {
 		ArrayList<Action> actions = new ArrayList<Action>();
+		Botao origem = null;
+		Botao destino = null;
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro.length; j++) {
-				if (tabuleiro[i][j].getCor().equals(corPecaIa)) {
+				if (tabuleiro[i][j].getCor() == corPecaIa) {
 					mostrarOpcoes(tabuleiro[i][j], tabuleiro);
 					for (int k = 0; k < tabuleiro.length; k++) {
 						for (int l = 0; l < tabuleiro.length; l++) {
 							if (tabuleiro[k][l].getBackground() == Color.GREEN
 									|| tabuleiro[k][l].getBackground() == Color.RED) {
-								actions.add(new Action(tabuleiro[i][j],
-										tabuleiro[k][l]));
+								origem = new Botao(tabuleiro[i][j].getI(),
+										tabuleiro[i][j].getJ(),
+										tabuleiro[i][j].getCor());
+								origem.setBackground(tabuleiro[i][j].getBackground());
+								destino = new Botao(tabuleiro[k][l].getI(),
+										tabuleiro[k][l].getJ(),
+										tabuleiro[k][l].getCor());
+								destino.setBackground(tabuleiro[k][l].getBackground());
+								actions.add(new Action(origem, destino));
 							}
 						}
 					}
 				}
 			}
+		}
+		System.err.println("Actions: ");
+		for (Action action : actions) {
+			System.err.println("Origem: I = " + action.getOrigem().getI()
+					+ " J = " + action.getOrigem().getJ() + " Destino: I = "
+					+ action.getDestino().getI() + " J = "
+					+ action.getDestino().getJ() + " Cor: "
+					+ action.getDestino().getBackground());
 		}
 		return actions;
 	}
@@ -353,11 +383,23 @@ public class IA {
 					if (j % 2 == 0)
 						tabuleiro[i][j].setBackground(Color.WHITE);
 				} else {
-					if (j % 2 != 0)
+					if (j % 2 != 0) {
 						tabuleiro[i][j].setBackground(Color.WHITE);
+					}
 				}
 			}
 		}
+	}
+
+	public void imprimiTabuleiro(Botao[][] tabuleiro) {
+		System.err.println("Tabuleiro: ");
+		for (int i = 0; i < tabuleiro.length; i++) {
+			for (int j = 0; j < tabuleiro[i].length; j++) {
+				System.err.print(tabuleiro[i][j].getCor() + " ");
+			}
+			System.err.println();
+		}
+
 	}
 
 	public boolean topRight(Botao btn) {
