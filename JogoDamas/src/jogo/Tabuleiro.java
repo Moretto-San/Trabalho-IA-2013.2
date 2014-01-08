@@ -105,21 +105,14 @@ public class Tabuleiro extends JPanel {
 				btnOrigem = btn;
 			}
 		}
-
 		if (btn.getBackground() == Color.RED) {
 			moverPeca(btnOrigem, btn);
 			jogou = true;
-		}
-
-		else if (btn.getBackground() == Color.GREEN) {
+		} else if (btn.getBackground() == Color.GREEN) {
 			comerPeca(procurarPecaEscolhidaParaComer(btn), btnOrigem, btn);
 			jogou = true;
 		}
-
 		if (jogou) {
-
-			// enviarMatriz(tabuleiro);
-			// receberMatriz();
 			System.err.println("Inicio vez IA!");
 			vezIA();
 			System.err.println("Fim vez IA!");
@@ -445,5 +438,4 @@ public class Tabuleiro extends JPanel {
 		tabuleiro = ia.ALPHABETASEARCH(tabuleiro);
 	}
 
-	
 }
