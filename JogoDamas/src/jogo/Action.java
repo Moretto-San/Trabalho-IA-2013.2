@@ -3,10 +3,20 @@ package jogo;
 public class Action {
 	Botao origem;
 	Botao destino;
+	Botao[][] tabuleiro;
 
-	public Action(Botao origem, Botao destino) {
+	public Action(Botao origem, Botao destino, Botao[][] tabuleiro) {
 		this.origem = origem;
 		this.destino = destino;
+		this.tabuleiro = tabuleiro;
+	}
+
+	public Botao[][] getTabuleiro() {
+		return tabuleiro;
+	}
+
+	public void setTabuleiro(Botao[][] tabuleiro) {
+		this.tabuleiro = tabuleiro;
 	}
 
 	public Botao getOrigem() {

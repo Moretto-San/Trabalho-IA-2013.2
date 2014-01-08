@@ -120,7 +120,9 @@ public class Tabuleiro extends JPanel {
 
 			// enviarMatriz(tabuleiro);
 			// receberMatriz();
+			System.err.println("Inicio vez IA!");
 			vezIA();
+			System.err.println("Fim vez IA!");
 			repintarTabuleiro();
 		}
 
